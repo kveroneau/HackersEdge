@@ -1,0 +1,10 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>Sign up</title>
+  <span12>
+    <heading>Sign up for Hacker's Edge</heading>
+    <p>A real email address is required as we send you an activation link for your account. This is done to prevent fake accounts and spammer accounts. We will not send you unsolicited mail, nor provide your information to any 3rd parties. The only correspondence will be in regards to your account, and replies to posts on threads in the forum you participate in.</p>
+    <signup csrf="{{csrf_token}}"/>
+  </span12>
+{% endblock %}

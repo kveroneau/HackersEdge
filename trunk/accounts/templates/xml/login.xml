@@ -1,0 +1,15 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>Login</title>
+  <span12>
+    <right>
+      <heading>Sign into Hacker's Edge</heading>
+      <login csrf="{{csrf_token}}"/>
+    </right>
+    <heading>Welcome to Hacker's Edge</heading>
+    <p>Hacker's Edge is an online Hacker simulation game based in a fictional universe.</p>
+    <p>Battle people from all around the world in the race to be the ultimate computer hacker.</p>
+    <register/>
+  </span12>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "email/base.html" %}
+
+{% block message %}
+<p>This is your official Hacker's Edge closed beta invitation!  Your lucky account has
+been chosen to participate.</p>
+
+<p>In case you have forgotten, your username is "{{user.username}}".  If you forgot your
+password, please use the link below to request a new one.</p>
+
+<p>If you created your Hacker's Edge account a couple years ago, much has changed in the
+development since then.  Now, the entire game is terminal-based.  Although, the game has
+been designed to be as friendly to users' whom might not know how to use a command-line,
+it can be a bit of a learning curve at first.  You should check out the latest tutorials
+and documentation in the "Help Center", which has a link below.</p>
+
+<p>Your account has also been added to a special group with exclusive forum access to a beta
+discussion topic.  Please use this forum to discuss any bugs you may encounter, or any other
+enhancement you think would benefit the game and other players.</p>
+
+<p>This game is also driven from user created content, if you have some programming skills, you
+can create custom applications, rootkits, viruses, trojans, malware, and other fun stuff.  The
+game world is your virtual playground to cause chaos on the virtual network.</p>
+
+<p><a href="http://www.hackers-edge.com/HelpCenter/">Help Center/Tutorials</a></p>
+<p><a href="http://www.hackers-edge.com/Forums/closed-beta">Beta discussion forum</a></p>
+<p><a href="http://www.hackers-edge.com/accounts/password/reset/">Password reset request form</a></p>
+
+<p>See you in the game!</p>
+{% endblock %}

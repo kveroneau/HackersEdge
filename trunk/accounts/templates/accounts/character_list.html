@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}My Characters{% endblock %}
+
+{% block css %}{% if GAME_ACCESS %}
+.jtable tr .ui-state-hover { font-weight: normal; }{% else %}
+.jtable th,td { color: #00ff00; text-align: left; }
+{% endif %}{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge: My Characters</h2>
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}Tips for newcomers!</div>
+<div class="ui-widget-content ui-corner-bottom">
+<p>If this is your first time playing, I highly recommend reading the many topics in the 
+<a href="{% url 'help-index' %}">Help Center</a>.</p>
+</div></div><br/>
+{% if GAME_ACCESS %}
+<a id="create_btn" href="{% url 'create_character' %}">Create Character</a>
+<table class="jtable" width="600">
+<thead><tr><th>Character</th><th>Host</th><th>Mailbox</th><th>Bank</th><th>Options</th></tr></thead>
+<tbody>
+  {% for character in character_list %}
+  <tr><td>{{character}}</td><td>{{character.ip_addr}}</td><td>{{character.mailhost}}</td><td>{{character.bank}}</td><td><a href="{% url 'delete_character' character.pk %}"><span class="ui-icon ui-icon-trash" style="float:left;"></span></a><a href="{% url 'character_password' character.pk %}"><span class="ui-icon ui-icon-key" style="float:left;"></span></a></td></tr>
+  {% endfor %}
+</tbody>
+</table>
+{% else %}
+<h3>Your not currently enabled for closed beta access at this time.</h3>
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}Redeem Invite Code</div>
+<div class="ui-widget-content ui-corner-bottom">
+<form action="{% url 'redeem_invite' %}" method="post">{% csrf_token %}
+<table class="jtable">
+{% if form %}{{form}}{% else %}{% invite_form %}{% endif %}
+</table>
+<input type="submit" value="Redeem" id="redeem_btn" />
+</form></div></div>
+{% endif %}
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+{% if GAME_ACCESS %}
+  $("#create_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% else %}
+  $("#redeem_btn").button();
+{% endif %}
+{% endblock %}

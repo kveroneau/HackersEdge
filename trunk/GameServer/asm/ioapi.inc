@@ -1,0 +1,34 @@
+; Declare variables(makes code easier to read)
+def npage $ff70
+def nconn $ff71
+def ncb1 $ff72
+def ncb2 $ff73
+def nport $ff74
+def ncntl $ff75
+def nip1 $ff76
+def nip2 $ff77
+def ncomm $ff78
+def fdev $ff8a
+def fmpage $ff8b
+def fblk1 $ff8c
+def fblk2 $ff8d
+def fcntl $ff8e
+def pout $ffd0
+def pord $ffd1
+def phex $ffd2
+def pcsi $ffd3
+def pcfg $ffd4
+def pcbg $ffd5
+def prow $ffd6
+def pcol $ffd7
+def mcb1 $ffdb
+def mcb1 $ffdc
+def mbp $ffdd
+def mrow $ffde
+def mcol $ffdf
+def inp $ffe0
+def he1 $fff0
+def he2 $fff1
+def heapi $fff2
+
+def hemon $30

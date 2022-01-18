@@ -1,0 +1,15 @@
+{% load url from future %}
+Hello,
+
+  Welcome to Hacker's Edge!  Your just one step away from playing.  Click on the activation link below:
+  
+  http://{{site.domain}}{% url 'registration_activate' activation_key %}
+
+Currently Hacker's Edge is in closed beta, and you will not be-able to play until
+you activate your account for closed beta access.
+
+When connecting into the game world, please ensure that you first create a character account, 
+and log into the actual in-game terminal using this character you created.  You can create characters from your 
+My Characters page located here: http://{{site.domain}}{% url 'character_list' %}
+
+Best Regards,

@@ -1,0 +1,78 @@
+Online version:
+http://www.hackers-edge.com/HelpCenter/tutorials/hackeros-primer.html
+
+Thank you for choose HackerOS for your 65c02 computer. HackerOS gives
+you the power to easily manage files and make network connections to
+other machines. In this primer, we will go through the basics of
+HackerOS and how to get up and running as quickly as possible. This
+primer will be updated from time to time, so please check back for
+any future updates.
+
+Hacker's Edge BootROM v0.1
+Loading BOOT.SYS...
+Loading KERNEL.SYS...
+HackerKernel v0.4 $Rev: 299 $
+HackerFileIO v0.1 $Rev: 293 $
+FILEIO.SYS driver loaded.
+HackerNetDrv v0.2 $Rev: 293 $
+IP: 49.67.30.2
+NETDRV.SYS driver loaded.
+HackerShell v0.3 $Rev: 293 $
+49.67.30.2$
+
+This is what you should see after booting up HackerOS, it will first
+boot from the code within the ROM chip, which will in turn load a
+bootloader program called BOOT.SYS from your disk. The bootloader will
+then look for and load KERNEL.SYS, and execute it. From here the
+HackerKernel takes over and starts up HackerOS.
+
+49.67.30.2$ help
+Welcome to the official Hacker's Edge OS!
+Now built entirely in 65c02 assembly language.
+
+Currently available commands:
+  * ls       - Lists the files on this host.
+  * halt     - Shuts down the host.
+  * reboot   - Soft reboots the host.
+  * hemon    - HE Monitor tool.
+  * basic    - EhBASIC 2.22 Interpreter.
+  * cat      - Read out the contents of a file to the console.
+  * rm       - Remove a file from the file system.
+  * ipconfig - Network control tool, read network.txt.
+  * mkfs     - Format the entire file system removing all files.
+  * showcase - A demo application made in assembly.
+
+To return to the shell prompt at any point just hit Ctrl-C
+on your keyboard.
+49.67.30.2$
+
+Here is a list of the current commands available as of this primer's
+writing. You can view this by typing help and hitting return on your
+keyboard. More commands will be released in future updates. For
+information on how to use either hemon or basic, please refer to their
+respective guides.
+
+49.67.30.2$ ls
+19 files.
+BOOT.SYS
+cat.bin
+help.bin
+KERNEL.SYS
+NETDRV.SYS
+readme.txt
+mkfs.bin
+halt.bin
+ipconfig.bin
+FILEIO.SYS
+showcase.bin
+reboot.bin
+SHELL.SYS
+ls.bin
+hemon.bin
+basic.bin
+echo.bin
+BASIC.SYS
+rm.bin
+49.67.30.2$
+
+Here is a list of the current file system for HackerOS.

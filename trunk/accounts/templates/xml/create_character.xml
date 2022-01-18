@@ -1,0 +1,30 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>Create Character</title>
+  <heading>Hacker's Edge: Create Character</heading>
+  <dialog>
+    <title icon="note">Tips for newcomers!</title>
+    <body>
+    <p>Let me explain the character creation a bit for you in brief.</p>
+    <p>Username and password should be straightforward, these are what you will sign into the game world using.</p>
+    <p>The <strong>Network</strong> dropdown allows you to select a particular in-game network, this more or less chooses
+which IP address your initial machine is assigned.  More networks will be available and vanish as time goes on.</p>
+    <p>The most confusion selection here is the <strong>Machine type</strong>.  Depending what you select here can drastically
+change your gameplay experience.  If you haven't played Hacker's Edge before, I highly recommend choosing 
+<strong>HackerOS 65c02</strong>, it is currently the most user-friendly out of the bunch.</p>
+    <p>For more information on character creation and other topics, please visit the 
+<a href="{% url 'help-topic' 'tutorials' %}">Tutorials</a>.</p>
+    </body>
+  </dialog>
+  <dialog>
+    <title icon="note">Create Character</title>
+    <body>
+      <form action="{% url 'create_character' %}" csrf="{{csrf_token}}" button="Create" cancel="{% url 'character_list' %}">
+      <table>
+      {{form}}
+      </table>
+      </form>
+    </body>
+  </dialog>
+{% endblock %}

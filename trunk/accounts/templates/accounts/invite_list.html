@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}My Invites{% endblock %}
+
+{% block css %}
+.jtable tr .ui-state-hover { font-weight: normal; }
+{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge: My Invites</h2>
+<a id="create_btn" href="{% url 'create_invite' %}">Create new Invite Code</a>
+<table class="jtable" width="600">
+<thead><tr><th>Invite Code</th><th>Created on</th><th>Taken on</th><th>Taken by</th></tr></thead>
+<tbody>
+  {% for invite in invite_list %}
+  <tr><td>{{invite.code}}</td><td>{{invite.created_on}}</td><td>{{invite.taken_on}}</td><td>{{invite.user}}</td></tr>
+  {% endfor %}
+</tbody>
+</table>
+{% endblock %}
+
+{% block jquery %}
+  $("#create_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

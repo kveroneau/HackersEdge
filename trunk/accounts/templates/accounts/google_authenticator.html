@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Google Authenticator setup{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge: Google Authenticator setup</h2>
+<p>Setting up your Hacker's Edge account to go through Google Authenticator couldn't be easier!  
+First you will need a compatible authentication app on your mobile device, such as Google Authenticator, 
+Authy, or other OTP Compatible app.  Next, open the app and select the option to add an account by scanning
+a QR code and scan the code for your accout below:</p>
+<img src="{% url 'qr_code' %}"/>
+<p>Once this is configured, you will no longer be-able to authenticate using your password, when signing into
+either the website, or connecting into the game world with a character account, you must now use the 6 digit
+PIN as your actual password.  This will prevent anybody from being able to guess and/or collect a password from
+this website, as the password is never the same, nor is it a common password.</p>
+<p><strong>Please note, that the act of visiting this page will disable regular password authentication on the website,
+and your character accounts!  You have been warned.</strong></p>
+{% endblock %}

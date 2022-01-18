@@ -1,0 +1,35 @@
+Welcome to the Hacker's Edge open beta!
+
+$LastChangedDate: 2019-01-28 20:23:47 -0700 (Mon, 28 Jan 2019) $
+
+Please review any notices posted here.
+
+What's New?
+
+  * IC Shell macro support!!!!
+    * Type "manual macros.txt" to learn more.
+  * NMI vector now works, press F6 to perform an NMI interrupt.
+    * NMI is non-maskable, so suspending interrupts will not prevent it's use.
+  * Mission Designers can now press F6 while a VM is running to view debug info.
+    * Please note, that NMI cannot be used while you have elevated permissions.
+    * This is to prevent potential cheating as NMI can be used to check.
+  * Function keys can now be detected in 65c02 code.
+    * If 0xffe0 is 0x0, then 0xffe1 contains your special control code.
+  * IC Shell has "import" command to import Intel Hex code into VM memory.
+  * Mouse support is back!
+  * Access to OOC + commands while connected to a host.
+  * Added new @mkosimage OOC command for moderators.
+  * Placed "hackeros-primer.txt" into the user manuals.
+  * Implemented support in HostFS to read files by blocks.
+  * Added 'memdump' to in-character shell.
+  * Added op code 0xeb which was missing.
+  * Fixed a bug where Enter was not working correctly in RAW mode.
+
+Understanding the system:
+
+  * Use the "help" command to help for the current system.
+  * Use the "+help" command to see your OOC commands.
+  * Use the "@help" command to display system OOC commands.
+
+Join the public chat channel by using the "@chan" command.
+Chat on the public chat channel by using "+p <message>" command.

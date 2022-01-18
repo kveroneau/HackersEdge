@@ -1,0 +1,35 @@
+{% extends "pm/base.html" %}
+
+{% block content %}
+<h2>Viewing: {{filename|default:'Repo Root'}}</h2>
+{% if rev %}<p class="muted">Revision: <strong>{{rev}}</strong></p>{% endif %}
+<a href="{% if filename %}{% url 'svnclient-log' filename %}{% if rev %}?rev={{rev}}{% endif %}{% else %}{% url 'svnclient-rlog' %}{% endif %}">CHANGELOG</a><hr/>
+{% if rev %}
+<a class="pager_btn" href="?rev={{rev|add:-1}}">&larr; Older Revision</a>
+<a class="pager_btn" href="?rev={{rev|add:1}}">Newer Revision &rarr;</a>
+{% endif %}
+<table class="jtable" width="600">
+  <thead><tr><th>Filename</th><th>Type</th><th>File size</th></tr></thead>
+  <tbody>
+    {% for svn in svn_list %}
+    <tr>
+      <td><a href="{% if svn.is_dir %}{% url 'svnclient-ls' svn.filename %}{% else %}{% url 'svnclient-cat' svn.filename %}{% endif %}{% if rev %}?rev={{rev}}{% endif %}">{{svn.display_name}}</a></td>
+      <td>{{svn.is_dir|yesno:"Directory,File"}}</td>
+      <td>{{svn.filesize|filesizeformat}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".pager_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

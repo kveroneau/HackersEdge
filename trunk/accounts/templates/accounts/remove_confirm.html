@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Purge Account{% endblock %}
+
+{% block jquery %}$(".post_btn").button();{% endblock %}
+
+{% block content %}
+<h3>Purge Hacker's Edge Account?</h3>
+<p>This operation is irreversible, it will purge all your account information from Hacker's Edge.  
+After confirming the operation, your user account, and all data connected to it, including forum posts, characters, 
+and invite codes will be entirely purged.  In order to come backt to Hacker's Edge at a later date, you 
+will be required to go through the sign-up process a second time.</p>
+<form action="{% url 'remove_account' %}" method="post">
+{% csrf_token %}<input type="submit" value="Remove my Account" class="post_btn"/> | 
+<input type="button" value="No" class="post_btn" onclick="javascript:history.go(-1);"/>
+</form>
+{% endblock %}

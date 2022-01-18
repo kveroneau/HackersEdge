@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load hackers_edge %}
+
+{% block title %}Forums : {{object}}{% endblock %}
+
+{% block jquery %}$(".thread_btn").button();{% endblock %}
+
+{% block content %}
+<h2><a href="{% url 'forum-index' %}">Hacker's Edge Forums</a>: {{object}}</h2>
+{% for thread in object.thread_set.all %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">
+{% if thread.is_locked %}{% showicon "locked" %}{% else %}{% showicon "grip-dotted-vertical" %}{% endif %}
+{{thread|link}}</div>
+<div class="ui-widget-content ui-corner-bottom">Started by {{thread.started_by}} on {{thread.started_on}}<br/>
+Last updated at {{thread.last_updated}}</div>
+</div><br/>
+{% endfor %}
+{% if user.is_authenticated %}
+{% if not object.valid_group or object.valid_group in user.groups.all %}
+<a class="thread_btn" href="{% url 'forum-newthread' object.slug %}">New Thread</a>
+{% endif %}
+{% endif %}
+{% endblock %}

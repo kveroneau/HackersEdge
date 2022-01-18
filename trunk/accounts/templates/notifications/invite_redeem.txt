@@ -1,0 +1,10 @@
+Hello Kevin!
+
+  The following Beta Invite has been redeemed:
+  
+  {{invite}}
+  
+  The user who redeemed is: {{invite.user}}
+
+Best Regards,
+  Hacker's Edge website

@@ -1,0 +1,57 @@
+.import __IOBASE__
+
+COUT  = __IOBASE__+$d0
+NOUT  = __IOBASE__+$d1
+HOUT  = __IOBASE__+$d2
+ANSI  = __IOBASE__+$d3
+TFG   = __IOBASE__+$d4
+TBG   = __IOBASE__+$d5
+TCOL  = __IOBASE__+$d6
+TROW  = __IOBASE__+$d7
+TCNTL = __IOBASE__+$dc
+
+TMASK = $10
+TRAW  = $20
+
+CIN   = __IOBASE__+$e0
+
+FNAME = __IOBASE__+$80
+FCNTL = __IOBASE__+$82
+FPAGE = __IOBASE__+$83
+FSIZE = __IOBASE__+$85
+FDEV  = __IOBASE__+$8a
+CFFA1 = __IOBASE__+$8f
+
+FREAD   = $1
+FWRITE  = $2
+FSTAT   = $3
+FDELETE = $4
+FLIST   = $5
+FMKFS   = $6
+
+NETSEG  = __IOBASE__+$70
+NETIDX  = __IOBASE__+$71
+NETIRQ  = __IOBASE__+$72
+NETPORT = __IOBASE__+$74
+NETCNTL = __IOBASE__+$75
+NETIP   = __IOBASE__+$76
+NETOUT  = __IOBASE__+$78
+
+NLISTEN = $1
+NCONN   = $2
+NSTAT   = $3
+NSTOP   = $4
+NSEND   = $5
+NREPLY  = $6
+
+HEPTR1  = __IOBASE__+$f0
+HEAPI   = __IOBASE__+$f2
+HEPTR2  = __IOBASE__+$f3
+
+HEMON   = $30
+HEATON  = $40
+HENTOA  = $41
+HEHALT  = $78
+HERESET = $79
+
+ROMFLAG = __IOBASE__+$1a

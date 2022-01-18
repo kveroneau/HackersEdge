@@ -1,0 +1,35 @@
+{% extends "base_1col.html" %}
+{% load dajaxice_templatetags %}
+
+{% block title %}Snippet Viewer{% endblock %}
+
+{% block jquery %}
+$('#snippet').width(600).height(400);
+$('#title').width(600);
+Dajaxice.snippets.app_init(Dajax.process);
+{% endblock %}
+
+{% block content %}
+<h3>Snippet Viewer</h3>
+<div class="container">
+  <div class="row">
+    <div class="span3">
+      <ul id="items" class="nav nav-list well"><li>Loading...</li></ul>
+      <div id="category_div">Loading...</div>
+      <button class="btn" onclick="addItem();">New</button>
+    </div>
+    <div class="span8">
+    <div id="snippet_id" style="display: none;">5</div>
+    <strong>Title:</strong> <input type="text" id="title"/>
+    <button class="btn" onclick="saveItem();">Save</button><br/>
+    <textarea id="snippet"></textarea>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% dajaxice_js_import %}
+<script type="text/javascript" src="{{STATIC_URL}}dajax/jquery.dajax.core.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/SnippetViewer.js"></script>
+{% endblock %}

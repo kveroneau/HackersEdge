@@ -1,0 +1,8 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>Try it page</title>
+  <span12>
+    <h3>It worked!</h3>
+  </span12>
+{% endblock %}

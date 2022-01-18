@@ -1,0 +1,12 @@
+Hello and welcome to Hacker's Edge!
+
+This is your official welcome package which should have arrived
+with your Hacker's Edge rig you recently ordered.
+
+You should carefully read all the documents and manuals which came
+with your PC, as they will explain the basics on how to get started
+and connected to the Hacker's Edge Internet.  The next guide you
+should read is the "Getting Started" book, which explains the basics
+on how to set-up and connect up your machine to the network.
+
+Good Luck!

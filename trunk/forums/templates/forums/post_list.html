@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load hackers_edge %}
+{% load forum_forms %}
+
+{% block title %}Forums : {{thread}}{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+  #id_subject { width: 400px; }
+  #id_body { height: 200px; width: 400px; }
+{% endblock %}
+
+{% block jquery %}$(".post_btn").button(); $(".page_btn").button();{% endblock %}
+
+{% block content %}
+<h2><a href="{{thread.topic.get_absolute_url}}">{{thread.topic}}</a>: {{thread}}</h2>
+{% if paginator.num_pages > 1 %}<a href="?page={{paginator.num_pages}}" class="page_btn" style="float:right;">Last Page &gt;&gt;</a><br/>{% endif %}
+{% for post in object_list %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "grip-dotted-vertical" %}{{post}}<br/>
+{% with post.user as user %}
+{% showicon "person" %}{{post.username}}{% if user.is_superuser %}(<b>Game Creator</b>){% elif user.is_staff %}(<b>Game Moderator</b>){% endif %}<br/>
+{% endwith %}
+{% showicon "calendar" %}{{post.posted}}</div>
+<div class="ui-widget-content ui-corner-bottom">{{post.body|urlize|markdown|safe}}</div>
+</div><br/>
+{% endfor %}
+{% if page_obj and paginator.num_pages > 1 %}
+{% if page_obj.has_previous %}<a href="?page={{page_obj.previous_page_number}}" class="page_btn">&lt;&lt;</a>{% endif %}
+{% for pg in paginator.page_range %}
+<a href="?page={{pg}}" class="page_btn">{{pg}}</a>
+{% endfor %}
+{% if page_obj.has_next %}<a href="?page={{page_obj.next_page_number}}" class="page_btn">&gt;&gt;</a>{% endif %}
+<br/><strong>Page {{page_obj.number}} of {{paginator.num_pages}}</strong>.
+{% endif %}
+{% if not thread.is_locked %}
+{% if user.is_authenticated %}
+{% if not thread.valid_group or thread.valid_group in user.groups.all %}
+<div class="ui-widget-content ui-corner-all">
+<form action="{% url 'forum-post' thread.pk %}" method="post">{% csrf_token %}
+<table class="jtable">
+{% post_form thread.subject %}
+</table>
+<input type="submit" value="Post" class="post_btn" />
+</form></div>
+{% if user.username == thread.started_by %}
+<a href="{% url 'forum-lockthread' thread.pk %}" class="post_btn">Lock Thread</a>{% endif %}
+{% endif %}{% endif %}{% endif %}
+{% endblock %}

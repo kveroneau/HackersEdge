@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load hackers_edge %}
+
+{% block title %}Forums : {{topic}}{% endblock %}
+
+{% block jquery %}$(".thread_btn").button(); $(".page_btn").button();{% endblock %}
+
+{% block content %}
+<h2><a href="{% url 'forum-index' %}">Hacker's Edge Forums</a>: {{topic}}</h2>
+{% for thread in object_list %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">
+{% if thread.is_locked %}{% showicon "locked" %}{% else %}{% showicon "grip-dotted-vertical" %}{% endif %}
+{{thread|link}}</div>
+<div class="ui-widget-content ui-corner-bottom">Started by {{thread.started_by}} on {{thread.started_on}}<br/>
+Last updated at {{thread.last_updated}}</div>
+</div><br/>
+{% endfor %}
+{% if page_obj %}
+{% if page_obj.has_previous %}<a href="?page={{page_obj.previous_page_number}}" class="page_btn">&lt;&lt;</a>{% endif %}
+{% for pg in paginator.page_range %}
+<a href="?page={{pg}}" class="page_btn">{{pg}}</a>
+{% endfor %}
+{% if page_obj.has_next %}<a href="?page={{page_obj.next_page_number}}" class="page_btn">&gt;&gt;</a>{% endif %}
+<br/><strong>Page {{page_obj.number}} of {{paginator.num_pages}}</strong>.
+{% endif %}
+{% if user.is_authenticated %}
+{% if not topic.valid_group or topic.valid_group in user.groups.all %}
+<br/><a class="thread_btn" href="{% url 'forum-newthread' topic.slug %}">New Thread</a>
+{% endif %}
+{% endif %}
+{% endblock %}

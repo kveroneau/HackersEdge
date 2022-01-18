@@ -1,0 +1,10 @@
+Hello {{user.get_full_name|default:user.username}}!
+
+  There was a reply to a forum post you previously posted to.
+  
+  http://www.hackers-edge.com{{post_url}}
+  
+  Visit the post to view and reply back to the message.
+
+Best Regards,
+  Forum master.

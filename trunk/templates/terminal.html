@@ -1,0 +1,103 @@
+{% extends "base_1col.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  {% if banner %}
+  <a href="https://bitbucket.org/kveroneau/hackrun">Fork this single player experience on BitBucket!</a><br/>{% endif %}
+  <div id="terminal"></div>
+  <strong>Feel like an elite hacker!</strong>  Play over telnet: hackers-edge.com:{{telnet_port}}
+{% endblock %}
+
+{% block extrahead %}
+  <link href="{{STATIC_URL|default:'/s/'}}css/jquery.terminal.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+  <script src="{{STATIC_URL|default:'/s/'}}js/jquery.mousewheel.min.js"></script>
+  <script src="{{STATIC_URL|default:'/s/'}}js/jquery.terminal-0.8.8.min.js"></script>
+{% endblock %}
+
+{% block javascript %}
+  function initWebSocket()
+  {
+    websocket = new WebSocket('ws://{{ws_url}}');
+    websocket.onopen = function(evt) { term.echo('Connected.'); term.resume(); };
+    websocket.onclose = function(evt) { term.echo('Disconnected.'); term.pause(); };
+    websocket.onmessage = function(evt) {
+      op = evt.data.slice(0,1);
+      data = evt.data.slice(1);
+      if (op == 'M'){
+        term.echo(data);
+        //term.resume();
+      } else if (op == 'N'){
+        append_message({'tag':'info', 'message':data});
+      } else if (op == 'D'){
+        term.echo(data);
+      } else if (op == 'X'){
+        term.echo(data);
+        term.pause();
+        websocket.close();
+      } else if (op == 'P'){
+        term.cmd().name(data);
+        term.set_prompt(data);
+        term.resume();
+      } else if (op == 'S'){
+        term.pause();
+      } else if (op == 'R'){
+        term.resume();
+      } else if (op == '*'){
+        term.history().reset();
+        term.set_mask(true);
+        term.cmd().history().disable();
+      } else if (op == '-'){
+        term.set_mask(false);
+        term.cmd().history().enable();
+      } else if (op == '!'){
+        term.cmd().history().disable();
+      } else if (op == '#'){
+        term.cmd().history().enable();
+      }else{
+        term.error('Unexpected opcode from server: '+op);
+      }
+    };
+    websocket.onerror = function(evt) { term.error('Unable to contact server.'); term.pause(); };
+  }
+{% endblock %}
+
+{% block jquery %}
+    term = $('#terminal').terminal(function(command, term) {
+          term.pause();
+          websocket.send(command);
+    }, {
+        height: 480,
+        greetings: '',
+        prompt: '',
+        exit: false,
+        onInit: function(term){
+          term.pause();
+          term.echo('Connecting to server...');
+          initWebSocket();
+        },
+        onExit: function(term){
+          websocket.close();
+        },
+        keydown: function(e) {
+          if (websocket.readyState == 1){
+            if (e.ctrlKey) {
+              if (e.which == 67) {
+                term.echo('^C');
+                term.pause();
+                websocket.send('^C');
+              }else if (e.which == 90){
+                term.echo('^Z');
+                term.pause();
+                websocket.send('^Z');
+              }else{
+                return true;
+              }
+            }
+          }
+        },
+    });
+{% endblock %}

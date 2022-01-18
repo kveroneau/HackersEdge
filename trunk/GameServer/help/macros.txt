@@ -1,0 +1,19 @@
+Hacker's Edge IC Shell macros guide
+
+Do you often type the same IC shell command over and over?
+Do you want to just press a single button to connect to a host?
+
+Look no further than the wonderful world of macros!  With macros, you can
+set a function key on your keyboard to automatically enter in an IC command.
+
+Here's an example to get you started, of course fill in your own host IP address:
+
+falken% macro 5 "connect 96.219.144.22"
+
+This will set the "F5" key to automatically run this command when it's pressed.
+
+Macros will not work while you are connected to a host, however very soon you will
+be able to use these function keys within your own 65c02 programs, so you can build
+your own macro system at that point within the OS itself.  Neat!
+
+Enjoy the new wonderful world of macros!

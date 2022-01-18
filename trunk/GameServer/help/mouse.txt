@@ -1,0 +1,36 @@
+Your guide to the Hacker's Edge BlackMouse++ GS
+
+Thank you for your purchase of the BlackMouse++ GS!  You can use your mouse in any
+compatible computer software you might have.  If you plan on developing your own,
+here is a getting started guide on how to program for this new piece of tech:
+
+This guide assumes that your I/O page is in the range of $ff00-$ffff
+
+The first thing you will want to do, is write an interrupt callback routine in your
+software.  This can live anywhere in your machine's main memory.  Set the vector
+at $ffdd,$ffde to your callback function.  Your callback should return using an RTI.
+
+You should disable interrupts within your routine to avoid problems.
+
+You can either set a flag in your routine and RTI to have your program manage it
+somehow, or you can check for which button and where the mouse was pressed using
+the following API:
+
+  $ffd9 - The button pressed
+  $ffda - The column where the click occurred.
+  $ffdb - The row where the click occurred.
+
+Lastly, you will want to enable the mouse in your software, there is a terminal bit
+set you can change for this to be done.  Here is an example to enable the mouse:
+
+LDA $ffdc
+ORA #$40
+STA $ffdc
+
+Likewise to disable the mouse again, use the following code:
+
+LDA $ffdc
+EOR #$40
+STA $ffdc
+
+And more importantly, enjoy using your BlackMouse++ GS!

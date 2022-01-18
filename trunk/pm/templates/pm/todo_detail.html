@@ -1,0 +1,26 @@
+{% extends "pm/base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Todo Item: {{object}}{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+{% endblock %}
+
+{% block content %}
+<h2>Todo Item: {{object}}</h2>
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}{{object}}<br/>
+{% showicon "calendar" %}{{object.added_on}}</div>
+<div class="ui-widget-content ui-corner-bottom">
+<table class="jtable">
+{{object.description}}
+</table>
+{% if not object.completed %}<a class="complete_btn" href="{% url 'pmtodo-complete' object.pk %}">Mark Complete</a>{% endif %}
+</div></div>
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".complete_btn").button();
+{% endblock %}

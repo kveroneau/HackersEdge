@@ -1,0 +1,13 @@
+{% extends "email/base.html" %}
+
+{% block message %}
+<p>Welcome to Hacker's Edge!  Your just one step away from playing.  Click on the activation link below:</p>
+  
+<p>http://{{site.domain}}{% url 'registration_activate' activation_key %}</p>
+
+<p>Currently Hacker's Edge is in <strong>open beta</strong>, there are a lot of loose ends as development continues.</p>
+
+<p>When connecting into the game world, please ensure that you first create a <strong>character account</strong>, 
+and log into the actual in-game terminal using this character you created.  You can create characters from your 
+<strong>My Characters</strong> page located here: <a href="http://{{site.domain}}{% url 'character_list' %}">http://{{site.domain}}{% url 'character_list' %}</a></p>
+{% endblock %}

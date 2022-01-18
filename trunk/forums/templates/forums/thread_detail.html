@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load hackers_edge %}
+{% load forum_forms %}
+
+{% block title %}Forums : {{object}}{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+  #id_subject { width: 400px; }
+  #id_body { height: 200px; width: 400px; }
+{% endblock %}
+
+{% block jquery %}$(".post_btn").button();{% endblock %}
+
+{% block content %}
+<h2><a href="{{object.topic.get_absolute_url}}">{{object.topic}}</a>: {{object}}</h2>
+{% for post in object.post_set.all %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "grip-dotted-vertical" %}{{post}}<br/>
+{% with post.user as user %}
+{% showicon "person" %}{{post.username}}{% if user.is_superuser %}(<b>Game Creator</b>){% elif user.is_staff %}(<b>Game Moderator</b>){% endif %}<br/>
+{% endwith %}
+{% showicon "calendar" %}{{post.posted}}</div>
+<div class="ui-widget-content ui-corner-bottom">{{post.body|urlize|markdown|safe}}</div>
+</div><br/>
+{% endfor %}
+{% if not object.is_locked %}
+{% if user.is_authenticated %}
+{% if not object.valid_group or object.valid_group in user.groups.all %}
+<div class="ui-widget-content ui-corner-all">
+<form action="{% url 'forum-post' object.pk %}" method="post">{% csrf_token %}
+<table class="jtable">
+{% post_form object.subject %}
+</table>
+<input type="submit" value="Post" class="post_btn" />
+</form></div>
+{% if user.username == object.started_by %}
+<a href="{% url 'forum-lockthread' object.pk %}" class="post_btn">Lock Thread</a>{% endif %}
+{% endif %}{% endif %}{% endif %}
+{% endblock %}

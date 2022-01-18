@@ -1,0 +1,8 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>Logged out</title>
+  <span12>
+    <heading>You have been successfully logged out.</heading>
+  </span12>
+{% endblock %}

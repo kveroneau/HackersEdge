@@ -1,0 +1,24 @@
+{% extends "base_1col.html" %}
+{% load url from future %}
+
+{% block title %}Login{% endblock %}
+
+{% block jquery %}
+  $("#login_btn").button();
+  $("#signup_btn").button();
+{% endblock %}
+
+{% block content %}
+<div style="float: right;">
+<h2>Sign into Hacker's Edge</h2>
+<form action="" method="post">{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Login" id="login_btn" />
+<a href="{% url 'auth_password_reset' %}">Forgot your password?</a>
+</form>
+</div>
+<h2>Welcome to Hacker's Edge</h2>
+<p>Hacker's Edge is an online Hacker simulation game based in a fictional universe.</p>
+<p>Battle people from all around the world in the race to be the ultimate computer hacker.</p>
+<a id="signup_btn" href="{% url 'registration_register' %}">Join today</a>
+{% endblock %}

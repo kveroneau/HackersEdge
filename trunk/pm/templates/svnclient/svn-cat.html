@@ -1,0 +1,21 @@
+{% extends "pm/base.html" %}
+{% load pygment %}
+
+{% block extrahead %}<link href="{{STATIC_URL|default:"/s/"}}pygments.css" rel="stylesheet">{% endblock %}
+
+{% block content %}
+<h2>Viewing: {{filename}}</h2>
+{% if rev %}<p class="muted">Revision: <strong>{{rev}}</strong></p>{% endif %}
+<a href="{% url 'svnclient-text' filename %}{% if rev %}?rev={{rev}}{% endif %}">View as text-only</a> | 
+<a href="{% url 'svnclient-history' filename %}{% if rev %}?rev={{rev}}{% endif %}">View History</a>
+{% if formatter != 'diff' %} | <a href="{% url 'svnclient-diff' filename %}{% if rev %}?rev={{rev}}{% endif %}">View diff</a>{% endif %}<hr/>
+{% if formatter %}
+{% stylize formatter %}
+{{svn_data|safe}}
+{% endstylize %}
+{% else %}
+<pre>
+{{svn_data}}
+</pre>
+{% endif %}
+{% endblock %}

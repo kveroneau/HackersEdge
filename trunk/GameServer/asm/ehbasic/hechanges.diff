@@ -1,0 +1,192 @@
+diff --git a/asm/ehbasic/basic.asm b/asm/ehbasic/basic.asm
+index 710a6c6..0b5d4b7 100644
+--- a/asm/ehbasic/basic.asm
++++ b/asm/ehbasic/basic.asm
+@@ -591,7 +591,7 @@ LAB_2DB6
+ 
+ ;      INC     Smemh                   ; increment start of mem high byte
+ LAB_2E05
+-       JSR     LAB_CRLF                ; print CR/LF
++       ;JSR    LAB_CRLF                ; print CR/LF
+        JSR     LAB_1463                ; do "NEW" and "CLEAR"
+        LDA     Ememl                   ; get end of mem low byte
+        SEC                             ; set carry for subtract
+@@ -755,7 +755,7 @@ LAB_OMER
+ ; do error #X, then warm start
+ 
+ LAB_XERR
+-       JSR     LAB_CRLF                ; print CR/LF
++       ;JSR    LAB_CRLF                ; print CR/LF
+ 
+        LDA     LAB_BAER,X              ; get error message pointer low byte
+        LDY     LAB_BAER+1,X    ; get error message pointer high byte
+@@ -974,8 +974,8 @@ LAB_1359
+        CMP     #$07                    ; compare with [BELL]
+        BEQ     LAB_1378                ; branch if [BELL]
+ 
+-       CMP     #$0D                    ; compare with [CR]
+-       BEQ     LAB_1384                ; do CR/LF exit if [CR]
++       CMP     #$0A                    ; compare with [LF]
++       BEQ     LAB_1384                ; do CR/LF exit if [LF]
+ 
+        CPX     #$00                    ; compare pointer with $00
+        BNE     LAB_1374                ; branch if not empty
+@@ -996,7 +996,6 @@ LAB_1378
+        STA     Ibuffs,X                ; else store in buffer
+        INX                             ; increment pointer
+ LAB_137F
+-       JSR     LAB_PRNA                ; go print the character
+        BNE     LAB_1359                ; always loop for next character
+ 
+ LAB_1384
+@@ -1330,7 +1329,7 @@ LAB_14E2
+        LDA     (Baslnl),Y              ; get next line pointer high byte
+                                        ; pointer initially set by search at LAB_14BD
+        BEQ     LAB_152B                ; if null all done so exit
+-       JSR     LAB_1629                ; do CRTL-C check vector
++       ;JSR    LAB_1629                ; do CRTL-C check vector
+ 
+        INY                             ; increment index for line
+        LDA     (Baslnl),Y              ; get line # low byte
+@@ -1497,7 +1496,7 @@ LAB_15B3
+ ; interpreter inner loop
+ 
+ LAB_15C2
+-       JSR     LAB_1629                ; do CRTL-C check vector
++       ;JSR    LAB_1629                ; do CRTL-C check vector
+        LDA     Bpntrl          ; get BASIC execute pointer low byte
+        LDY     Bpntrh          ; get BASIC execute pointer high byte
+ 
+@@ -2375,12 +2374,11 @@ LAB_1866
+        STA     Ibuffs,X                ; null terminate input
+        LDX     #<Ibuffs                ; set X to buffer start-1 low byte
+        LDY     #>Ibuffs                ; set Y to buffer start-1 high byte
++       RTS
+ 
+ ; print CR/LF
+ 
+ LAB_CRLF
+-       LDA     #$0D                    ; load [CR]
+-       JSR     LAB_PRNA                ; go print the character
+        LDA     #$0A                    ; load [LF]
+        BNE     LAB_PRNA                ; go print the character and return, branch always
+ 
+@@ -2511,10 +2509,10 @@ LAB_18F7
+        PLA                             ; get character back
+ LAB_18F9
+        JSR     V_OUTP          ; output byte via output vector
+-       CMP     #$0D                    ; compare with [CR]
+-       BNE     LAB_188A                ; branch if not [CR]
++       CMP     #$0A                    ; compare with [LF]
++       BNE     LAB_188A                ; branch if not [LF]
+ 
+-                                       ; else print nullct nulls after the [CR]
++                                       ; else print nullct nulls after the [LF]
+        STX     TempB                   ; save buffer index
+        LDX     Nullct          ; get null count
+        BEQ     LAB_1886                ; branch if no nulls
+@@ -2525,7 +2523,7 @@ LAB_1880
+        DEX                             ; decrement count
+        BNE     LAB_1880                ; loop if not all done
+ 
+-       LDA     #$0D                    ; restore the character (and set the flags)
++       LDA     #$0A                    ; restore the character (and set the flags)
+ LAB_1886
+        STX     TPos                    ; clear terminal position (X always = zero when we get here)
+        LDX     TempB                   ; restore buffer index
+@@ -7800,10 +7798,10 @@ StrTab
+ EndTab
+ 
+ LAB_MSZM
+-       .byte   $0D,$0A,"Memory size ",$00
++       .byte   "Memory size ",$00
+ 
+ LAB_SMSG
+-       .byte   " Bytes free",$0D,$0A,$0A
++       .byte   " Bytes free",$0A
+        .byte   "Enhanced BASIC 2.22",$0A,$00
+ 
+ ; numeric constants and series
+@@ -8685,12 +8683,12 @@ ERR_LD  .byte   "LOOP without DO",$00
+ 
+ ;ERR_UA        .byte   "Undimensioned array",$00
+ 
+-LAB_BMSG       .byte   $0D,$0A,"Break",$00
++LAB_BMSG       .byte   $0A,"Break",$00
+ LAB_EMSG       .byte   " Error",$00
+ LAB_LMSG       .byte   " in line ",$00
+-LAB_RMSG       .byte   $0D,$0A,"Ready",$0D,$0A,$00
++LAB_RMSG       .byte   $0A,"Ready",$0A,$00
+ 
+-LAB_IMSG       .byte   " Extra ignored",$0D,$0A,$00
+-LAB_REDO       .byte   " Redo from start",$0D,$0A,$00
++LAB_IMSG       .byte   " Extra ignored",$0A,$00
++LAB_REDO       .byte   " Redo from start",$0A,$00
+ 
+ AA_end_basic
+diff --git a/asm/ehbasic/min_mon.asm b/asm/ehbasic/min_mon.asm
+index a44dd6c..fbf61ce 100644
+--- a/asm/ehbasic/min_mon.asm
++++ b/asm/ehbasic/min_mon.asm
+@@ -72,31 +72,23 @@ LAB_nokey
+ 
+        CMP     #'C'                    ; compare with [C]old start
+        BNE     RES_vec         ; loop if not [C]old start
+-
++        JSR     V_INPT          ; Clear input buffer.
+        JMP     LAB_COLD                ; do EhBASIC cold start
+ 
+ LAB_dowarm
++        JSR     V_INPT
+        JMP     LAB_WARM                ; do EhBASIC warm start
+ 
+ ; byte out to Replica 1/Apple 1 screen
+ 
+ ACIAout
+-        CMP     #LF                     ; Ignore line feed character
+-        BEQ     Ignore
+-WaitForReady:      
+-       BIT     $D012
+-       BMI     WaitForReady
+-       STA     $D012
+-Ignore:
++       STA     $FFD0
+        RTS
+ 
+ ; byte in from Replica 1/Apple 1 keyboard
+ 
+ ACIAin
+-       LDA     $D011
+-       BPL     LAB_nobyw               ; branch if no byte waiting
+-
+-       LDA     $D010
++       LDA     $FFE0
+        AND     #$7F                    ; clear high bit
+        SEC                             ; flag byte received
+        RTS
+@@ -182,7 +174,7 @@ Restore1:
+         ADC     IN+1                       ; FileSize+1
+         STA     Svarh
+ 
+-        LDA     #CR                        ; Echo newline
++        LDA     #LF                        ; Echo newline
+         JSR     ACIAout
+ 
+         JSR     LAB_1477                   ;  Need to call this BASIC routine to clear variables and reset the execution pointer
+@@ -294,7 +286,6 @@ loop:
+         BEQ  EnterPressed       ; If so, handle it
+         CMP  #ESC               ; <Esc> key pressed?
+         BEQ  EscapePressed      ; If so, handle it
+-        JSR  ACIAout            ; Echo the key pressed
+         STA  IN+1,X             ; Store character in buffer (skip first length byte)
+         INX                     ; Advance index into buffer
+         CPX  #$7E               ; Buffer full?
+@@ -347,7 +338,7 @@ NMI_CODE
+ END_CODE
+ 
+ LAB_mess
+-       .byte   $0D,$0A,"6502 EhBASIC [C]old/[W]arm ?",$00
++       .byte   "6502 EhBASIC [C]old/[W]arm ?",$00
+                                        ; sign on string
+ 
+ ; system vectors

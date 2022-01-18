@@ -1,0 +1,19 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>My Characters</title>
+  <accordion/>
+  <span9>
+    <heading>Hacker's Edge: My Characters</heading>
+    <dialog>
+      <title icon="note">Tips for newcomers!</title>
+      <body><p>If this is your first time playing, I highly recommend reading the many topics in the Help Center.</p></body>
+    </dialog>
+    <button title="Create Character">{% url 'create_character' %}</button>
+    <characters>
+      {% for character in character_list %}
+      <character ip_addr="{{character.ip_addr}}" mailhost="{{character.mailhost}}" bank="{{character.bank}}">{{character}}</character>
+      {% endfor %}
+    </characters>
+  </span9>
+{% endblock %}

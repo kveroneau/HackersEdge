@@ -1,0 +1,24 @@
+{% extends "base_1col.html" %}
+{% load url from future %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block css %}.jtable th,td { color: #00ff00; text-align: left; }{% endblock %}
+
+{% block jquery %}
+  $("#signup_btn").button();
+{% endblock %}
+
+{% block content %}
+<h2>Sign up for Hacker's Edge</h2>
+<p>A real email address is required as we send you an activation link for your account.
+This is done to prevent fake accounts and spammer accounts.  We will not send you unsolicited
+mail, nor provide your information to any 3rd parties.  The only correspondence will be in
+regards to your account, and replies to posts on threads in the forum you participate in.</p>
+<form action="{% url 'registration_register' %}" method="post">{% csrf_token %}
+<table class="jtable">
+{{form}}
+</table>
+<input type="submit" value="Sign up" id="signup_btn" />
+</form>
+{% endblock %}

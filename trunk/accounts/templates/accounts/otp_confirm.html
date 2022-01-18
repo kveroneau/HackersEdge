@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Google Authenticator setup{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge: Google Authenticator setup</h2>
+<p>Welcome to <strong>Google Authenticator setup</strong>.  After enabling this, you will not be-able to
+sign into either the website or a character account unless you have the 6 digit code provided by an OTP
+Authentication app like Google Authenticator or Authy.  Only click the activate button below only once you
+have a compatible OTP App installed and ready.  On the next page all you need to do is use the Authentication
+app to snap a picture of the QR code to set up the account in your app.</p>
+<a href="?continue=true" class="activate_btn">I have read this, please activate</a>
+{% endblock %}
+
+{% block jquery %}
+$(".activate_btn").button();
+{% endblock %}

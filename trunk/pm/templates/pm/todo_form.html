@@ -1,0 +1,23 @@
+{% extends "pm/base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Create Todo Item{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+{% endblock %}
+
+{% block jquery %}$(".post_btn").button();{% endblock %}
+
+{% block content %}
+<h2>Create Todo Item</h2>
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}Create Todo Item</div>
+<div class="ui-widget-content ui-corner-bottom">
+<form action="{% url 'pmtodo-add' %}" method="post">{% csrf_token %}
+<table class="jtable">
+{{form}}
+</table>
+<input type="submit" value="Create" class="post_btn" />
+</form></div></div>
+{% endblock %}

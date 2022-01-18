@@ -1,0 +1,22 @@
+{% extends "base_1col.html" %}
+{% load url from future %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+  .helptext { float: right; font-size: 10pt; }
+{% endblock %}
+
+{% block jquery %}
+  $("#contact_btn").button();
+{% endblock %}
+
+{% block content %}
+<h2>Contact us</h2>
+<form action="" method="post">{% csrf_token %}
+<table class="jtable">
+{{form}}
+</table>
+<input id="contact_btn" type="submit" value="Send message" /></form>
+{% endblock %}

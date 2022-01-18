@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Host Template{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+{% endblock %}
+
+{% block jquery %}$(".post_btn").button();{% endblock %}
+
+{% block content %}
+<h2>Host Template</h2>
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}Host Template</div>
+<div class="ui-widget-content ui-corner-bottom">
+<form action="" method="post">{% csrf_token %}
+<table class="jtable">
+{{form}}
+</table>
+<input type="submit" value="Save" class="post_btn" />
+</form></div></div>
+{% endblock %}

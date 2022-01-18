@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Hacker's Edge user statistics{% endblock %}
+
+{% block content %}
+<h3>Hacker's Edge user statistics page</h3>
+<table>
+<tr><th>Active users(past 30 days)</th><td>{{active30}}</td></tr>
+<tr><th>Active users(past year)</th><td>{{active1}}</td></tr>
+<tr><th>Sign-ups(past 30 days)</th><td>{{signup30}}</td></tr>
+<tr><th>Sign-ups(past year)</th><td>{{signup1}}</td></tr>
+<tr><th>Played Game(past 30 days)</th><td>{{played30}}</td></tr>
+<tr><th>Played Game(past year)</th><td>{{played1}}</td></tr>
+<tr><th>Google Auth enabled</th><td>{{gauth}}</td></tr>
+</table>
+{% endblock %}

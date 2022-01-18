@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}My Characters{% endblock %}
+
+{% block content %}
+<h2>Source Code Revision Control</h2>
+<p class="muted">You can use this system to view the source code revision of a project you have with us.</p>
+<table class="table">
+  <thead><tr><th>Repository Title</th><th>Repository URL</th><th>Changelog</th></tr></thead>
+  <tbody>
+    {% for repo in svn_list %}
+    <tr><td><a href="{{repo.get_absolute_url}}">{{repo}}</a></td><td>{{repo.svn_url}}</td><td><a href="{% url 'svnclient-rlog' repo.slug %}">View changelog</a></td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

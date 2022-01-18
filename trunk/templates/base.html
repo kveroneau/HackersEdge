@@ -1,0 +1,152 @@
+{% load url from future %}
+{% load cache %}
+{% load hackers_edge %}
+{% load dajaxice_templatetags %}
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Hacker's Edge | {% block title %}Untitled{% endblock %}</title>
+  <link type="text/css" href="{{STATIC_URL|default:'/s/'}}css/bootstrap.min.css" rel="stylesheet" />
+  <link type="text/css" href="{{STATIC_URL|default:'/s/'}}css/trontastic/jquery-ui-1.8.18.custom.css" rel="stylesheet" />
+  <link type="text/css" href="{{STATIC_URL|default:'/s/'}}css/style.css" rel="stylesheet" />
+  <style>{% block css %}{% endblock %}</style>
+  <script src="{{STATIC_URL|default:'/s/'}}js/jquery-1.7.1.min.js" type="text/javascript"></script>
+  <script src="{{STATIC_URL|default:'/s/'}}js/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
+  {% dajaxice_js_import %}
+  <script src="{{STATIC_URL|default:'/s/'}}dajax/jquery.dajax.core.js" type="text/javascript"></script>
+  {% block extrahead %}{% endblock %}
+  <script type="text/javascript">
+  var messages = [
+  {% if messages %}
+   {% for message in messages %}
+    {'tag':'{{message.tags}}', 'message':'{{message}}'}{% if not forloop.last %},{% endif %}
+   {% endfor %}
+  {% endif %}
+{% if not user.is_authenticated %}
+    {'tag':'info', 'message':'Welcome!'}
+{% endif %}
+  ];
+  display_message = function() {
+    if (messages.length == 0){ $("#message").fadeOut(); return; }
+    $("#message").html('<span class="ui-icon ui-icon-'+messages[0].tag+'" style="float: left;"></span>'+messages[0].message);
+    messages.splice(0,1);
+    setTimeout(display_message, 5000);
+  }
+  append_message = function(message) {
+    if (messages.length == 0){ $("#message").fadeIn(); }
+    messages.push(message);
+    display_message();
+  }
+  {% block javascript %}{% endblock %}
+$(function(){
+  $("#message").hide();
+  $("#navbar a").button();
+  $("#accordion").accordion({fillSpace:true});
+  $("button").button({icons:{primary:"ui-icon-trash"}});
+{% block jquery %}
+{% endblock %}
+  if (messages.length > 0){
+    display_message();
+    $("#message").fadeIn();
+  }
+  $("#message").click(display_message);
+});
+  </script>
+{% include "analytics.html" %}
+ </head>
+ <body>
+ <div class="container">
+  <div id="navbar" class="row">
+   {% block navbar %}
+   <div class="span3" id="brand">Hacker's Edge</div>
+   <div class="span1"><a href="{% url 'character_list' %}">Account</a></div>
+   <div class="span1"><a href="{% url 'forum-index' %}">Forums</a></div>
+   <div class="span1"><a href="/play/">Play</a></div>
+   <div id="message" class="span5 ui-state-highlight ui-corner-all"></div>
+   {% endblock %}
+  </div>
+  <div class="row">
+   {% block body %}
+   <div class="span3">
+    <div id="accordion">
+     {% block accordion %}
+     <h3><a href="#">My Account</a></h3>
+     <div>
+      <a href="{% url 'character_list' %}">{% showicon "person" %}Player Characters</a><br/>
+{% if user.is_superuser %}
+      <a href="{% url 'admin:index' %}">{% showicon "person" %}Site Administration</a><br/>
+{% endif %}
+{% if user.is_authenticated %}
+{% if GAME_ACCESS %}
+      {% comment %}
+      <a href="{% url 'invite_list' %}">{% showicon "mail-closed" %}Send Invite</a><br/>
+      {% endcomment %}
+      <a href="{% url 'setup_otp' %}">{% showicon "key" %}Google Authenticator</a><br/>
+{% endif %}
+      <a href="{% url 'auth_password_change' %}"><span class="ui-icon ui-icon-key" style="float:left;"></span>Change Password</a><br/>
+      <a href="{% url 'remove_account' %}">{% showicon "trash" %}Purge Account</a></br/>
+      <a href="{% url 'auth_logout' %}"><span class="ui-icon ui-icon-power" style="float:left;"></span>Logout</a><br/>
+{% endif %}
+     </div>
+     {% if perms.henet.change_hosttemplate %}
+     <h3><a href="#">Mission Designer</a></h3>
+     <div>
+       {% if user.is_staff %}<a href="{% url 'host-list' %}">Host List</a><br/>{% endif %}
+       <a href="{% url 'template-list' %}">Host Templates</a><br/>
+       {% if perms.henet.change_hostfile %}<a href="{% url 'file-list' %}">Host Files</a><br/>{% endif %}
+       {% if perms.henet.change_mailmessage %}<a href="#">Mail Messages</a><br/>{% endif %}
+     </div>
+     {% endif %}
+     {% if perms.help_center.add_guide %}
+     <h3><a href="#">Project Management</a></h3>
+     <div>
+       {% if perms.pm.change_todoitem %}<a href="{% url 'pmtodo-list' %}">Todo list</a><br/>{% endif %}
+       {% if perms.pm.change_snippet %}<a href="{% url 'snippet-viewer' %}">Snippet Viewer</a><br/>{% endif %}
+       <a href="{% url 'pmguide-add' %}">Add Guide</a><br/>
+       {% if user.is_superuser %}<a href="{% url 'svnclient-index' %}">Source Code</a><br/>{% endif %}
+     </div>
+     {% endif %}
+     {% comment %}
+     {% if user.is_staff %}
+     <h3><a href="#">Server Management</a></h3>
+     <div>
+       <a href="{% url 'admin:index' %}">Website admin</a>
+     </div>
+     {% endif %}
+     {% comment %}
+     <h3><a href="#">Tools</a></h3>
+     <div>
+      {% block tools %}
+      <a href="#">{% showicon "home" %}Overview</a><br/>
+      <a href="#">{% showicon "clock" %}Running Tasks</a><br/>
+      {% endblock %}
+     </div>
+     <h3><a href="#">Resources</a></h3>
+     <div>
+      Nothing here...
+     </div>
+     {% endcomment %}
+     <h3><a href="#">Help</a></h3>
+     <div>
+      <a href="{% url 'help-index' %}">{% showicon "help" %}Game Guide</a><br/>
+      <a href="{% url 'help-topic' 'tutorials' %}">{% showicon "lightbulb" %}Tutorials</a><br/>
+      <a href="{% url 'forum-topic' 'help' %}">{% showicon "comment" %}Forums</a><br/>
+     </div>
+     {% endblock %}
+    </div>
+   </div>
+   <div class="span9">
+    <div id="content" class="ui-widget-content ui-corner-all" style="overflow: auto;">
+     {% block content %}
+     {% endblock %}
+    </div>
+   </div>
+   {% endblock %}
+  </div>
+ </div>
+ {% block footer %}
+ {% endblock %}
+ <div class="copyright">Python Powered | &copy; 2012-2018 Hacker's Edge | <a href="http://www.pythondiary.com/">Blog</a> | <a href="{% url 'contact_us' %}">Contact us</a> | <a href="{% url 'privacy' %}">Privacy Policy</a></div>
+ </body>
+</html>

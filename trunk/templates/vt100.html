@@ -1,0 +1,22 @@
+{% extends "base_1col.html" %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <div id="vt100"></div>
+  <strong>Feel like an elite hacker!</strong>  Play over telnet: hackers-edge.com:{{telnet_port}}<br/>
+  <strong>You will need to <a href="{% url 'character_list' %}">create a character</a> before you can login here.</strong>
+{% endblock %}
+
+{% block extrahead %}
+  <link href="{{STATIC_URL|default:'/s/'}}css/vt100.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block footer %}
+  <script src="{{STATIC_URL|default:'/s/'}}js/vt100.js"></script>
+  <script src="{{STATIC_URL|default:'/s/'}}js/client.js"></script>
+{% endblock %}
+
+{% block jquery %}
+client = new HackersEdge('{{ws_url}}');
+{% endblock %}

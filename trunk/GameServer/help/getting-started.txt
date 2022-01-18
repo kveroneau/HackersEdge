@@ -1,0 +1,28 @@
+In this Getting Started guide you will learn the basics about
+how to navigate Hacker's Edge and connect to your machine.
+
+By now, you should have at least found the "help" command, this
+command is available in most systems in Hacker's Edge.  If you
+ever need to know what commands are available at any given time,
+you should try using the "help" command.  Give it a try now!
+
+Right now, you are in a mode called IC(in-character), all actions
+made in this mode is from the point of view of your character.
+
+Let's try connecting to your first host, you can either type in
+the commands in full or use tab completion.  I recommend reading
+the tab-completion guide for more information on this.  Let's
+connect using tab-completion as it requires very little keystrokes:
+
+con<tab><tab><enter>
+
+When you press the tab key on your keyboard, you should immediately
+notice it's effect on your terminal.  Since you begin with only a
+single host, the second tab there will complete to the only host you
+have in your arsenal.
+
+Currently in the open beta, there is a play ground of toys to beta
+test as time goes on.  Depending on the machine type you choose,
+you may be in for a rough ride.  I highly recommend choosing
+"HackerOS 65c02" as your machine to have the most enjoyment in
+the open beta.

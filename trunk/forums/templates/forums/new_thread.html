@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load hackers_edge %}
+
+{% block title %}Forums : New Thread{% endblock %}
+
+{% block css %}
+  .jtable th,td { color: #00ff00; text-align: left; }
+  #id_subject { width: 400px; }
+  #id_body { height: 200px; width: 400px; }
+{% endblock %}
+
+{% block jquery %}$(".post_btn").button();{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge Forums: {{topic}}</h2>
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}New Thread</div>
+<div class="ui-widget-content ui-corner-bottom">
+<form action="{% url 'forum-newthread' topic.slug %}" method="post">{% csrf_token %}
+<table class="jtable">
+{{form}}
+</table>
+<input type="submit" value="Post" class="post_btn" />
+</form></div></div>
+{% endblock %}

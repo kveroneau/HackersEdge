@@ -1,0 +1,22 @@
+Did you know that you can actually access your host files
+over the standard FTP protocol?
+
+The unfortunate bit here is that it hasn't been fully tested
+with every single FTP client that exists, but support will
+be ongoing to improve it's overall compatibility.
+
+If you wanted to give it a shot, just point your FTP software here:
+
+FTP Server: ftp.hackers-edge.com
+FTP Port: 2121
+FTP Username: Your character username
+FTP Password: Your character password
+
+This feature technically breaks the forth wall, but for the sake
+of usability the game gods shouldn't mind too much...
+
+Anyways, this super feature only found in Hacker's Edge allows you
+to both download and upload files from the hosts your character
+has in it's inventory.  So, you could say assemble a binary file
+locally on your real world PC, and then upload the program to the
+game world to wreck havoc on the virtual Internet.

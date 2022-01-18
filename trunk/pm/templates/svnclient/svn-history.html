@@ -1,0 +1,25 @@
+{% extends "pm/base.html" %}
+
+{% block content %}
+<h2>Viewing: {{filename}}</h2>
+<a href="{% url 'svnclient-cat' filename %}">View file</a>
+<table class="jtable" width="600">
+  <thead><tr><th>Revision</th><th>Message</th><th>Date</th><th>Author</th></tr></thead>
+  <tbody>
+    {% for rev in history_list %}
+    <tr><td><a href="{% url 'svnclient-diff' filename %}?rev={{rev.revision}}">{{rev.revision}}</a></td><td>{{rev.message|linebreaksbr}}</td><td>{{rev.date}}</td><td>{{rev.author}}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

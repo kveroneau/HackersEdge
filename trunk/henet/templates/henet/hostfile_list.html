@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Host Files{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge Host Files</h2>
+<a href="{% url 'create-file' %}" class="create_btn">Create File</a>
+{% if all == 'y' %}
+<a href="?page=1&all=n" class="page_btn">Show only my files</a>
+{% else %}
+<a href="?page={{page_obj.number}}&all=y" class="page_btn">Show all files</a>
+{% endif %}
+<table class="jtable" width="600">
+  <thead><tr><th>Filename</th><th>Created by</th></tr></thead>
+  <tbody>
+    {% for item in object_list %}
+    <tr>
+      <td><a href="{{item.get_absolute_url}}">{{item}}</a></td>
+      <td>{{item.created_by}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if page_obj %}
+{% if page_obj.has_previous %}<a href="?page={{page_obj.previous_page_number}}&all={{all}}" class="page_btn">&lt;&lt;</a>{% endif %}
+{% for pg in paginator.page_range %}
+<a href="?page={{pg}}&all={{all}}" class="page_btn">{{pg}}</a>
+{% endfor %}
+{% if page_obj.has_next %}<a href="?page={{page_obj.next_page_number}}&all={{all}}" class="page_btn">&gt;&gt;</a>{% endif %}
+<br/><strong>Page {{page_obj.number}} of {{paginator.num_pages}}</strong>.
+{% endif %}
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".page_btn").button();
+  $(".create_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

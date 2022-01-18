@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="{{STATIC_URL|default:'/s/'}}xsl/hackersedge.xsl"?>
+<page title="Home" assets="{{STATIC_URL|default:'/s/'}}">
+  <navbar>
+    <item title="Account">{% url 'character_list' %}</item>
+    <item title="Forums">{% url 'forum-index' %}</item>
+    <item title="Play">play/</item>
+  </navbar>
+  <content>
+    <span12>
+     <heading>Welcome to Hacker's Edge!</heading>
+     <p>Hacker's Edge is a online multiplayer game which takes place in the not so distant future, where computer warfare 
+     is running rampant. There exists many underground agencies who hire these hackers to do various jobs for them in 
+     exchange for credits. Some of these jobs are as simple as breaking into a remote computer system to steal intellectual 
+     property, others are as complex as setting a worm lose on a foreign computer network to do havoc.</p>
+     <p>The online universe of Hacker's Edge is open world, and you are free to do almost anything your heart desires. To 
+     making billions of credits selling captured intellectual property on the black market, or working as a freelance 
+     security consultant. Hacker's Edge simulates an entire Internet which you can use as your virtual playground to try 
+     things which you would not otherwise <a href="try.xml" id="ctx">try</a> in the real world.</p>
+     <p>Hacker's Edge has changed rather drastically since it's initial conception.  Originally, it was going to be a
+     web-based game to allow easy accessibility for the general public.  Since then, Hacker's Edge underwent a few design
+     changes.  Hacker's Edge is now a full terminal-based hacking simulation game with an emphasis on actual coding.  Within
+     the game world, you will find a <help topic="programming">full 65c02 virtual machine</help> with
+     special extensions and memory locations to support network connectivity, TTY, and block devices.  To further whet your mouth,
+     almost everything in the game world is programmed in 65c02 assembly, from the specialized KERNEL, to all the in-game hacking
+     tools.  Players are completely free and highly encourages to hack these tools and programs to give themselves an advantage
+     in-game.  With that said, you don't need to know or understand programming to play the game.  A good amount of missions will
+     not require it, as tools will already exist.  Players will also have the ability to enlist other players to develop tools for
+     them as well.</p>
+     <p>Since Hacker's Edge is a fictional game, the skills you used in the real world to hack will not work in the 
+     Hacker's Edge virtual world, and of course the other way around.  In no way is this online game a way of teaching you 
+     how to perform illegal activities in the real world.</p>
+     <p>That being said, any attempt to hack this online game to either bring down the servers, or to gain an advantage in 
+     the virtual game world is otherwise prohibited. This game is built in fun and entertainment.</p>
+     <p>If you think you got what it takes to be the next elite hacker, then 
+     <url title="create an account">{% url 'registration_register' %}</url> today and join in.</p>
+    </span12>
+  </content>
+</page>

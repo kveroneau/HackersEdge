@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<accordion>
+  <section title="My Account">
+    <nav title="Player Characters" icon="person" id="ctx">{% url 'character_list' %}</nav>
+{% if user.is_superuser %}
+    <nav title="Site Administration" icon="person" id="ctx">{% url 'admin:index' %}</nav>
+{% endif %}
+{% if user.is_authenticated %}
+    <nav title="Google Authenticator" icon="key" id="content">{% url 'setup_otp' %}</nav>
+    <nav title="Change Password" icon="key" id="content">{% url 'auth_password_change' %}</nav>
+    <nav title="Purge Account" icon="trash" id="content">{% url 'remove_account' %}</nav>
+    <nav title="Logout" icon="power" id="ctx">{% url 'auth_logout' %}</nav>
+{% endif %}
+  </section>
+{% if perms.henet.change_hosttemplate %}
+  <section title="Mission Designer">
+    {% if user.is_staff %}<nav title="Host List" icon="key" id="content">{% url 'host-list' %}</nav>{% endif %}
+    <nav title="Host Templates" icon="key" id="content">{% url 'template-list' %}</nav>
+    {% if perms.henet.change_hostfile %}<nav title="Host Files" icon="key" id="content">{% url 'file-list' %}</nav>{% endif %}
+  </section>
+{% endif %}
+{% if perms.help_center.add_guide %}
+  <section title="Project Management">
+    {% if perms.pm.change_todoitem %}<nav title="Todo list" icon="key" id="content">{% url 'pmtodo-list' %}</nav>{% endif %}
+    {% if perms.pm.change_snippet %}<nav title="Snippet Viewer" icon="key" id="ctx">{% url 'snippet-viewer' %}</nav>{% endif %}
+    <nav title="Add Guide" icon="key" id="content">{% url 'pmguide-add' %}</nav>
+    {% if user.is_superuser %}<nav title="Source Code" icon="key" id="content">{% url 'svnclient-index' %}</nav>{% endif %}
+  </section>
+{% endif %}
+  <section title="Help">
+    <nav title="Game Guide" icon="help" id="ctx">{% url 'help-index' %}</nav>
+    <nav title="Tutorials" icon="lightbulb" id="ctx">{% url 'help-topic' 'tutorials' %}</nav>
+    <nav title="Forums" icon="comment" id="content">{% url 'forum-topic' 'help' %}</nav>
+  </section>
+</accordion>

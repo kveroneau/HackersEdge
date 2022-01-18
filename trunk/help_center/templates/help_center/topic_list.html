@@ -1,0 +1,16 @@
+{% extends "base_1col.html" %}
+{% load hackers_edge %}
+
+{% block title %}Help Center{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge Game Guide</h2>
+<h3>Table of Contents</h3>
+{% for topic in object_list %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "grip-dotted-vertical" %}{{topic|link}}<br/>
+{% showicon "calendar" %}{{topic.last_update|default:"N/A"}}</div>
+<div class="ui-widget-content ui-corner-bottom">{{topic.description|linebreaksbr}}</div>
+</div><br/>
+{% endfor %}
+{% endblock %}

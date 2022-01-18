@@ -1,0 +1,10 @@
+Tab completion is going to be your best friend when working in
+Hacker's Edge.  For example, did you know you could have used
+the tab key to read this document in only 5 keystrokes?  Here's
+how:  m<tab>t<tab><enter>
+
+You can use this trick through any shell on your Hacker's Edge PC
+which supports this feature.  This guide will be updated in the
+future with developer APIs which you can use in your own programs
+to enable tab-completion in say a custom shell program you create
+yourself!  Now your playing with Power!  TAB POWER!

@@ -1,0 +1,30 @@
+{% extends "pm/base.html" %}
+
+{% block content %}
+<h2>Hacker's Edge Todo list</h2>
+{% if perms.pm.add_todoitem %}<a href="{% url 'pmtodo-add' %}" class="create_btn">Create item</a>{% endif %}
+<table class="jtable" width="600">
+  <thead><tr><th>Title</th><th>Category</th><th>Added on</th></tr></thead>
+  <tbody>
+    {% for item in object_list %}
+    <tr>
+      <td><a href="{{item.get_absolute_url}}">{{item}}</a></td>
+      <td>{{item.category}}</td>
+      <td>{{item.added_on}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".create_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

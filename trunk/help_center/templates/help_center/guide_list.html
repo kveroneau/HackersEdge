@@ -1,0 +1,18 @@
+{% extends "base_1col.html" %}
+{% load url from future %}
+{% load hackers_edge %}
+
+{% block title %}Help Center : {{object}}{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge <a href="{% url 'help-index' %}">Game Guide</a>: {{topic}}</h2>
+{% for guide in guide_list %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "note" %}{{guide|link}}<br/>
+{% showicon "calendar" %}{{guide.created_on}}{% if guide.modified_on > guide.created_on %}<br/>
+Last updated at {{guide.modified_on}}{% endif %}</div>
+<div class="ui-widget-content ui-corner-bottom">{{guide.content|truncatewords_html:20|safe}}<br/>
+<a href="{{guide.get_absolute_url}}">Read more...</a></div>
+</div><br/>
+{% endfor %}
+{% endblock %}

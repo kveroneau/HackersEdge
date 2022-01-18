@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block accordion %}
+<h3><a href="#">Mission Designer</a></h3>
+<div>
+  {% if user.is_staff %}<a href="{% url 'host-list' %}">Host List</a><br/>{% endif %}
+  {% if perms.henet.change_hosttemplate %}<a href="{% url 'template-list' %}">Host Templates</a><br/>{% endif %}
+  {% if perms.henet.change_hostfile %}<a href="{% url 'file-list' %}">Host Files</a><br/>{% endif %}
+  {% if perms.henet.change_mailmessage %}<a href="#">Mail Messages</a><br/>{% endif %}
+</div>
+<h3><a href="#">Server Management</a></h3>
+<div>
+  {% if user.is_staff %}<a href="{% url 'admin:index' %}">Website admin</a>{% endif %}
+</div>
+{% endblock %}

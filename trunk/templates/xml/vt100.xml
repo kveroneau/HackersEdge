@@ -1,0 +1,8 @@
+{% extends "xml/base.xml" %}
+
+{% block xml %}
+  <title>{{title}}</title>
+  <span12>
+    <vt100 ws="{{ws_url}}" telnet="{{telnet_port}}"/>
+  </span12>
+{% endblock %}

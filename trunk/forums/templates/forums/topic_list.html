@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load hackers_edge %}
+
+{% block title %}Forums{% endblock %}
+
+{% block jquery %}
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $("[id=id_q]").bind("autocompleteselect", function(event, ui){
+    Dajaxice.forums.get_absolute_url(Dajax.process, {'post_id':parseInt(ui.item.id)});
+  });
+{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge Forums</h2>
+{% if user.is_authenticated %}
+<form action="" method="get">
+<table class="jtable">{{forumsearch_form}}</table>
+</form>
+{% endif %}
+{% for topic in object_list %}
+<div class="ui-widget">
+<div class="ui-widget-header ui-corner-top">{% showicon "grip-dotted-vertical" %}{{topic|link}}</div>
+<div class="ui-widget-content ui-corner-bottom">{{topic.description|linebreaksbr}}</div>
+</div><br/>
+{% endfor %}
+{% endblock %}

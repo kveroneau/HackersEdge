@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Host Templates{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge Host Templates</h2>
+<a href="{% url 'create-template' %}" class="create_btn">Create Template</a>
+<table class="jtable" width="600">
+  <thead><tr><th>Title</th><th>Slug</th><th>Created by</th></tr></thead>
+  <tbody>
+    {% for item in object_list %}
+    <tr>
+      <td><a href="{{item.get_absolute_url}}">{{item}}</a></td>
+      <td>{{item.slug}}</td>
+      <td>{{item.created_by}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".create_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

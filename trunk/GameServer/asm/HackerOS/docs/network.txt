@@ -1,0 +1,14 @@
+HackerOS Networking guide
+
+HackerOS comes with a network driver NETDRV.SYS, which
+provides a few useful functions to user programs.
+
+There is also a userspace program called ipconfig.bin
+which allows you to view your IP address or change
+the status of the network card.
+
+$ ipconfig up
+This will bring up the network if it was brought down.
+
+$ ifconfig down
+This will bring the interface offline, kicking any connections.

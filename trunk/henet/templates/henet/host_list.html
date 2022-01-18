@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Host List{% endblock %}
+
+{% block content %}
+<h2>Hacker's Edge Host List</h2>
+<table class="jtable" width="600">
+  <thead><tr><th>IP Address</th><th>Online</th><th>DNS Server</th><th>Machine Type</th><th>Template</th></tr></thead>
+  <tbody>
+    {% for item in object_list %}
+    <tr>
+      <td>{{item}}</td>
+      <td>{{item.get_online}}</td>
+      <td>{{item.get_dns}}</td>
+      <td>{{item.get_vm}}</td>
+      <td>{{item.get_template}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if page_obj %}
+{% if page_obj.has_previous %}<a href="?page={{page_obj.previous_page_number}}" class="page_btn">&lt;&lt;</a>{% endif %}
+{% for pg in paginator.page_range %}
+<a href="?page={{pg}}" class="page_btn">{{pg}}</a>
+{% endfor %}
+{% if page_obj.has_next %}<a href="?page={{page_obj.next_page_number}}" class="page_btn">&gt;&gt;</a>{% endif %}
+<br/><strong>Page {{page_obj.number}} of {{paginator.num_pages}}</strong>.
+{% endif %}
+{% endblock %}
+
+{% block jquery %}
+{{block.super}}
+  $(".page_btn").button();
+  $(".jtable th").each(function(){ $(this).addClass("ui-state-default"); });
+  $(".jtable td").each(function(){ $(this).addClass("ui-widget-content"); });
+  $(".jtable tr").hover(function(){
+   $(this).children("td").addClass("ui-state-hover");
+  }, function(){
+   $(this).children("td").removeClass("ui-state-hover");
+  });
+{% endblock %}

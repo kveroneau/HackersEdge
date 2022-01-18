@@ -1,0 +1,18 @@
+<html><head><style>
+body { 
+  background-color: #000000; color: #00ff00;
+  font-size: 10pt; font-family: courier;
+}
+.header { font-size: 18pt; font-weight: bold; }
+a { color: #ff0000; %}
+</style></head><body>
+<div class="header">Hacker's Edge</div>
+<p>Hello {{user.get_full_name|default:user.username}}!</p>
+{% block message %}{% endblock %}
+<p>Best Regards,<br/>
+&nbsp;&nbsp;Kevin Veroneau<br/>
+&nbsp;&nbsp;Hacker's Edge creator</p>
+<hr/>
+<p>Please report any formatting issues with these HTML formatted messages.</p>
+<p>This is an automated message, any replies are sent to /dev/null(quite literally).</p>
+</body></html>

@@ -1,0 +1,13 @@
+@font-face {
+    font-family: VT220;
+    src: url(VT220.ttf);
+}
+body { background-color: #000000; font-size: 10pt; font-family: VT220, courier; margin: 0; padding: 0; height: 100%; }
+#accordion { height:auto !important; min-height: 100%; }
+#accordion h3 { font-size: 10pt; }
+#accordion div { font-size: 10pt; }
+#content { height:auto !important; min-height: 100%; padding: 5px; }
+#navbar { font-size: 8pt; }
+#brand { font-size: 20pt; color: #00ff00; font-family: VT220, courier; }
+.copyright { color: #ff0000; display: block; text-align: center; font-family: VT220, courier; }
+.copyright a { color: #00ff00; }
